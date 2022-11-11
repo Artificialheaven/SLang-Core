@@ -25,7 +25,7 @@ def update_globals(parma: list, _dict: dict):
 
 
 @Core.other.get_reg().reg('删除变量', 1, '删除SLang-Core全局变量')
-def del_var(parma:list, _dict: dict):
+def del_var(parma: list, _dict: dict):
     do_not_delete = ('debug')
     if parma[0] in do_not_delete:
         print('禁止删除SLang-Core核心全局变量')
@@ -34,12 +34,12 @@ def del_var(parma:list, _dict: dict):
 
 
 @Core.other.get_reg().reg('赋值变量', 2, '赋值临时变量')
-def set_room_var(parma:list, _dict: dict):
+def set_room_var(parma: list, _dict: dict):
     _dict[parma[0]] = parma[1]
 
 
 @Core.other.get_reg().reg('变量', 1, '获取临时变量')
-def set_room_var(parma:list, _dict: dict):
+def set_room_var(parma: list, _dict: dict):
     return str(_dict[parma[0]])
 
 
