@@ -5,9 +5,25 @@ import Core.other
 class Slang:
     _dict = {}
 
-    def __init__(self, d={}):
+    def __init__(self, d=None):
+        if d is None:
+            d = {}
         self._dict = d
         # 创建初始变量表
+
+    def __call__(self, text: str, d=None):
+        """
+        :param text: 欲运行的Slang文本
+        :param d: 欲植入的字典
+        :return: 返回自身
+        """
+        if d is not None:
+            self._dict = d
+        self.run_room(text)
+        return self
+
+    def get_dict(self) -> dict:
+        return self._dict
 
     def run_room(self, text: str) -> str:
         """
