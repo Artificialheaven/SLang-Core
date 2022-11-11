@@ -15,6 +15,10 @@ Core.init.init()    # 这里进行初始化，只需要进行一次，不要多�
 Slang = Core.main.Slang(d={'debugging': True})  # 生成一个Slang对象，d是欲处理字典，只有本对象可以访问
 Slang.run_room('【调试输出【变量debugging】】') # 运行Slang文本，返回最终的返回值。
 ```
+示例Slang代码
+```Slang
+【调试输出你好，世界】【调试输出当前debug状态：【获取变量debug】】
+```
 
 # 引用Slang-Core
 示例如main.py
