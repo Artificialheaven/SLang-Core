@@ -55,6 +55,7 @@ class Slang:
                 rightcount = 0
                 isAbuild = False
                 ret = self.sample_run_room(text[startat:i + 1])
+                # print(text[startat:i + 1], ret)
                 if ret == None:
                     returnmsg = returnmsg.replace(text[startat:i + 1], '', 1)
                 else:
@@ -64,9 +65,9 @@ class Slang:
                 # text[startat:i + 1] : 单个运行的房间，一次性运行
         return returnmsg
 
-
     def sample_run_room(self, text: str):
         # 运行最小变量单元，应该先分割出各个层次的函数，然后由内从前向后运行
+        # print(text)
         for i in Core.other.get_reg()():
             # print(text, '【'+i, text.startswith('【' + i))
             if text.startswith('【' + i):
@@ -87,7 +88,7 @@ class Slang:
                     if left_count == 0:
                         do = True
                         # 内部左右括号平衡，继续获取参数
-                    if text[count:count+3] == '>=<' and do:
+                    if text[count:count + 3] == '>=<' and do:
                         if dst == 0:
                             _list.append(text[len('【' + i):count])
                             # print('定位到第一个参数' + text[len('【' + i):count])
@@ -95,15 +96,59 @@ class Slang:
                             _list.append(text[dst:count])
                             # print('定位到位于中部的参数' + text[dst:count])
                         dst = count + 3  # dst为定位前端
-                    if len(_list) == 0 and count == len(text)-1:
+                    if len(_list) == 0 and count == len(text) - 1:
                         # 无参数的或者只有一个的
                         if not text == '【' + i + '】':
                             # 包含一个参数，把去掉首尾的【函数】去掉剩下的都是参数
-                            _list.append(text[len('【' + i):len(text)-1])
+                            _list.append(text[len('【' + i):len(text) - 1])
                             # print('定位到唯一参数' + text[len('【' + i):len(text)-1])
-                    if not dst == 0 and do and text[count] == '】' and count == len(text)-1:
-                        _list.append(text[dst:len(text)-1])
+                    if not dst == 0 and do and text[count] == '】' and count == len(text) - 1:
+                        _list.append(text[dst:len(text) - 1])
                         # print('定位到末尾参数' + text[dst:len(text)-1])
+
+                if i == '判断':   # 判断执行 参数1为逻辑，[True|真|1|true] 都视为真， [False|假|0|false] 视为假
+                    # print(_list)
+                    boolean = self.run_room(_list[0])   # list[0]为
+                    if boolean in ['True', 'true', '真', '1']:   # 运行第二个参数
+                        ret = self.run_room(_list[1])
+                        return ret
+                    elif boolean in ['False', 'false', '假', '0']:
+                        ret = self.run_room(_list[2])
+                        return ret
+                    else:
+                        print(f'运行 {text} 时发现异常，作为判断标准的函数异常，错误函数 {_list[0]} 其返回值 {boolean}')
+                        if Core.other.get_glo().get('debug'):   # 开启debug模式，以boolean作为返回值
+                            return boolean
+                        else:   # 未开启返回空
+                            return ''
+                ifline = False
+                if i == '比较-':
+                    # print(_list)
+                    if _list[0] == '大于':
+                        if float(_list[1]) > float(_list[2]):
+                            ifline = True
+                    if _list[0] == '小于':
+                        if float(_list[1]) < float(_list[2]):
+                            ifline = True
+                    if _list[0] == '等于':
+                        if _list[1] == _list[2]:
+                            ifline = True
+                    if _list[0] == '大于等于':
+                        if float(_list[1]) >= float(_list[2]):
+                            ifline = True
+                    if _list[0] == '小于等于':
+                        if float(_list[1]) <= float(_list[2]):
+                            ifline = True
+                    if _list[0] == '不等于':
+                        if _list[1] != _list[2]:
+                            ifline = True
+                    if ifline:
+                        ret = self.run_room(_list[3])
+                        return ret
+                    else:
+                        ret = self.run_room(_list[4])
+                        return ret
+
                 # print(_list)
                 if len(_list) != 0:
                     for j in range(len(_list)):
@@ -114,5 +159,6 @@ class Slang:
                             # print('解析参数' + _list[j] + '返回', ret)
                         _list[j] = ret
                 # print(f'运行{i},{_list}')
+
                 ret = Core.other.get_reg().call(i, _list, self._dict)
                 return ret

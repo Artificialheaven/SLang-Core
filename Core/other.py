@@ -35,6 +35,12 @@ class Registers:
             print(f'调用了不存在的函数{func_name}')
             return None
 
+    def reg_not_callable(self, name, parma_len, info):
+        self.func_dict[name] = {'name': name, 'func': None, 'parma_len': None, 'info': None}
+        self.func_dict[name]['parma_len'] = parma_len
+        self.func_dict[name]['info'] = info
+        print(f'逻辑函数作为{name}被注册，参数{parma_len}个，介绍：{info}。')
+
 
 class globals:
     _dict = {}
