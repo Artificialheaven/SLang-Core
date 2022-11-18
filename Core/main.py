@@ -124,23 +124,25 @@ class Slang:
                 ifline = False
                 if i == '比较-':
                     # print(_list)
+                    int_1, int_2 = self.run_room(_list[1]), self.run_room(_list[2])
+                    # print(int_1, int_2)
                     if _list[0] == '大于':
-                        if float(_list[1]) > float(_list[2]):
+                        if int_1 > int_2:
                             ifline = True
                     if _list[0] == '小于':
-                        if float(_list[1]) < float(_list[2]):
+                        if int_1 < int_2:
                             ifline = True
                     if _list[0] == '等于':
-                        if _list[1] == _list[2]:
+                        if int_1 == int_2:
                             ifline = True
                     if _list[0] == '大于等于':
-                        if float(_list[1]) >= float(_list[2]):
+                        if int_1 >= int_2:
                             ifline = True
                     if _list[0] == '小于等于':
-                        if float(_list[1]) <= float(_list[2]):
+                        if int_1 <= int_2:
                             ifline = True
                     if _list[0] == '不等于':
-                        if _list[1] != _list[2]:
+                        if int_1 != int_2:
                             ifline = True
                     if ifline:
                         ret = self.run_room(_list[3])
@@ -148,6 +150,22 @@ class Slang:
                     else:
                         ret = self.run_room(_list[4])
                         return ret
+                if i == '循环-':
+                    booleans = self.run_room(_list[0])
+                    boolean = False
+                    if booleans in ['True', 'true', '真', '1']:
+                        boolean = True
+                    else:
+                        boolean = False
+                    ret = ''
+                    while boolean:
+                        ret = ret + self.run_room(_list[1])
+                        booleans = self.run_room(_list[0])
+                        if booleans in ['True', 'true', '真', '1']:
+                            boolean = True
+                        else:
+                            boolean = False
+                    return ret
 
                 # print(_list)
                 if len(_list) != 0:

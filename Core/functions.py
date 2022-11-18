@@ -226,3 +226,15 @@ def execute_math(parma: list, _dict: dict):
     return str(d['ret'])
 
 
+@Core.other.get_reg().reg('置变量', 2, '将文本，字符串，列表，字典等填充进变量列表')
+def set_var_pro(parma: list, _dict: dict):
+    d, _d = {}, {}
+    exec(f'''r = {parma[1]}''', _d, d)
+    _dict[parma[0]] = d['r']
+
+
+@Core.other.get_reg().reg('测试', 2, '运行一段Python代码。')
+def execute_python(parma: list, _dict: dict):
+    _d, d = {}, {}     # 站位
+    exec(parma[1], _d, d)
+    _dict[parma[0]] = d
