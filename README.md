@@ -23,7 +23,7 @@ Slang.run_room('【调试输出【变量debugging】】') # 运行Slang文本，
 # 引用Slang-Core
 示例如main.py
 
-# 需要库[仅支持Python38及以上]
+# 需要库[仅支持Python39及以上]
 ```
 requests
 ```
