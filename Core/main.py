@@ -1,14 +1,19 @@
 # Core运行器
 import Core.other
+from Core.register import Register
+
+
+global_dict = {}
 
 
 class Slang:
     _dict = {}
 
-    def __init__(self, d=None):
+    def __init__(self, register: Register, d=None):
         if d is None:
             d = {}
         self._dict = d
+        self.register = register
         # 创建初始变量表
 
     def __call__(self, text: str, d=None):
@@ -68,7 +73,7 @@ class Slang:
     def sample_run_room(self, text: str):
         # 运行最小变量单元，应该先分割出各个层次的函数，然后由内从前向后运行
         # print(text)
-        for i in Core.other.get_reg()():
+        for i in self.register.get_func_dict():
             # print(text, '【'+i, text.startswith('【' + i))
             if text.startswith('【' + i):
                 # 确认当前运行函数名
@@ -178,5 +183,5 @@ class Slang:
                         _list[j] = ret
                 # print(f'运行{i},{_list}')
 
-                ret = Core.other.get_reg().call(i, _list, self._dict)
+                ret = self.register.call(i, _list, self._dict)
                 return ret

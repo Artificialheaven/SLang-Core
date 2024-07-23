@@ -2,6 +2,9 @@
 import time
 
 
+global_dict = {}
+
+
 class Registers:
     func_dict = {}
 
@@ -32,7 +35,7 @@ class Registers:
             ret = self.func_dict[func_name]['func'](parma, _dict)
             return ret
         else:
-            print(f'调用了不存在的函数{func_name}')
+            # print(f'调用了不存在的函数{func_name}')
             return None
 
     def reg_not_callable(self, name, parma_len, info):
@@ -58,9 +61,7 @@ class globals:
         self._dict[key] = value
 
 
-global __dict
 __dict = {'glo': globals(), 'reg': Registers()}
-
 
 
 def get_glo() -> globals:
