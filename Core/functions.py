@@ -36,6 +36,7 @@ def update_globals(parma: list, _dict: dict):
 @register.reg('获取变量', 1, '获取SLang-Core全局变量')
 def update_globals(parma: list, _dict: dict):
     # print(f'尝试获取全局变量{parma[0]}')
+    print(global_dict, _dict)
     return str(global_dict[parma[0]])
 
 
@@ -130,7 +131,7 @@ def get_dict_value(parma: list, _dict: dict):
 
 @register.reg('数组-取内容', 2, '获取某一列表变量的某个值，并返回')
 def get_list_value(parma: list, _dict: dict):
-    return str(_dict[int(parma[0])][1])
+    return str(_dict[parma[0]][int(parma[1])])
 
 
 @register.reg('字典-取内容', 2, '获取某一字典变量中的某个值，并返回')

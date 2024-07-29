@@ -153,6 +153,9 @@ class Slang:
                         ret = self.run_room(_list[3])
                         return ret
                     else:
+                        if len(_list) < 5:
+                            # 不够五个参数，而且为不成立，那么不做任何运行
+                            return ''
                         ret = self.run_room(_list[4])
                         return ret
                 if i == '循环-':
