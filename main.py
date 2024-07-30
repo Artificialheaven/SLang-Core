@@ -1,11 +1,11 @@
-from Core.init import init as slang_init
-
+import Core.init
+import Core.main
 from regs import register
 from Core.main import global_dict
 
 
 # 这个地方实际上会先运行基础的init，例如globals和reg的注册
-Slang = slang_init(register, d={'debugging': True})    # 这里进行初始化检测
+Slang = Core.init.init(register, d={'debugging': True})    # 这里进行初始化检测
 global_dict['debug'] = True
 
 try:
