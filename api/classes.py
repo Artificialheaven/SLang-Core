@@ -22,6 +22,8 @@ def set_dict(parma: list, _dict:dict):
         del parma[len(parma)-1]
     d = {}
     is_key = True
-    for i in parma:
+    for i in range(len(parma)):
         if is_key:
-            d
+            d[parma[i]] = None
+        else:
+            d[parma[i-1]] = parma[i]
