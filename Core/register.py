@@ -1,8 +1,8 @@
 import time
-import Core.other
+from .globals import global_var
 
 
-globals = Core.other.global_dict
+globals = global_var
 
 
 class Router:
@@ -37,7 +37,7 @@ class Router:
         self.func_dict[name] = {'name': name, 'func': None, 'parma_len': None, 'info': None}
         self.func_dict[name]['parma_len'] = parma_len
         self.func_dict[name]['info'] = info
-        print(f'逻辑函数作为{name}被注册，参数{parma_len}个，介绍：{info}。')
+        # print(f'逻辑函数作为{name}被注册，参数{parma_len}个，介绍：{info}。')
 
     def get_func_dict(self):
         return self.func_dict
@@ -59,7 +59,7 @@ class Register:
             self.func_dict[name] = {'name': func.__name__, 'func': func, 'parma_len': None, 'info': None}
             self.func_dict[name]['parma_len'] = parma_len
             self.func_dict[name]['info'] = info
-            print(f'函数{func.__name__}作为{name}被注册，参数{parma_len}个，介绍：{info}。')
+            # print(f'函数{func.__name__}作为{name}被注册，参数{parma_len}个，介绍：{info}。')
             return wapperB
 
         return wapperA
@@ -76,7 +76,7 @@ class Register:
         self.func_dict[name] = {'name': name, 'func': None, 'parma_len': None, 'info': None}
         self.func_dict[name]['parma_len'] = parma_len
         self.func_dict[name]['info'] = info
-        print(f'逻辑函数作为{name}被注册，参数{parma_len}个，介绍：{info}。')
+        # print(f'逻辑函数作为{name}被注册，参数{parma_len}个，介绍：{info}。')
 
     def set_router(self, router: Router):
         for i in router.func_dict:
@@ -84,7 +84,7 @@ class Register:
                 continue
             self.func_dict[i] = router.func_dict[i]
             d = router.func_dict[i]
-            print(f'函数{d["name"]}作为{i}被注册，参数{d["parma_len"]}个，介绍：{d["info"]}。')
+            # print(f'函数{d["name"]}作为{i}被注册，参数{d["parma_len"]}个，介绍：{d["info"]}。')
 
 
     def get_func_dict(self):

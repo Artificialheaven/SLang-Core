@@ -11,7 +11,7 @@ import sqlite3
 import Core.register
 import Core.main
 
-from Core.main import global_dict
+from Core.globals import global_var as global_dict
 
 '''
 @register.reg('', 1, '')
@@ -36,7 +36,7 @@ def update_globals(parma: list, _dict: dict):
 @register.reg('获取变量', 1, '获取SLang-Core全局变量')
 def update_globals(parma: list, _dict: dict):
     # print(f'尝试获取全局变量{parma[0]}')
-    print(global_dict, _dict)
+    # print(global_dict, _dict)
     return str(global_dict[parma[0]])
 
 

@@ -1,9 +1,7 @@
 # Core运行器
-import Core.other
+# import Core._other
 from Core.register import Register
-
-
-global_dict = {}
+from .globals import global_var as global_dict
 
 
 class Slang:
@@ -123,7 +121,7 @@ class Slang:
                             return ret
                         else:
                             print(f'运行 {text} 时发现异常，作为判断标准的函数异常，错误函数 {_list[0]} 其返回值 {boolean}')
-                            if Core.other.get_glo().get('debug'):   # 开启debug模式，以boolean作为返回值
+                            if global_dict['debug']:   # 开启debug模式，以boolean作为返回值
                                 return boolean
                             else:   # 未开启返回空
                                 return ''
