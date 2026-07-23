@@ -8,8 +8,17 @@ if __name__ == "__main__":
 
     try:
         while True:
-            text = input('>>>')
+            # text = input('>>>')
+            text = """
+            【修改变量cnt>=<3】
+            【循环-【比较-大于>=<【获取变量cnt】>=<0>=<1>=<0】
+            >=<
+                你好世界【换行】
+                【修改变量cnt>=<【计算【获取变量cnt】-1】】
+            】
+            """
             print(Slang.run_room(text))
+            exit()
     except KeyboardInterrupt as e:
         print("\nUser Exit Slang")
         exit()
